@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/', function () {
-    return view('empleado.index');
+    return view('auth.login');
 });
 
 //this is for called the mehtod
@@ -27,4 +27,15 @@ Route::get('/empleado/create',[EmpleadoController::class,'create']);
 
 //this is for access to all URL
 //look in php artisan route:list
-Route::resource('/empleado',EmpleadoController::class);
+Route::resource('/empleado',EmpleadoController::class)->middleware('auth');
+Auth::routes(['register'=>false,'reset'=>false]);
+
+
+Route::get('/home', [EmpleadoController::class, 'index'])->name('home');
+
+
+Route::get('/home', [EmpleadoController::class, 'index'])->name('home');
+
+    Route::group(['middleware'=> 'auth'], function(){
+    Route::get('/', [EmpleadoController::class, 'index'])->name('home');
+});

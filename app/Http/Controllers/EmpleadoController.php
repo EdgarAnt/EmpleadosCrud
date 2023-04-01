@@ -32,6 +32,23 @@ class EmpleadoController extends Controller
     public function store(Request $request)
     {
         //
+        $campos=[
+            'Nombre'=>'required|string',
+            'ApellidoPaterno'=>'required|string|',
+            'ApellidoMaterno'=>'required|string|',
+            'Correo'=>'required|email',
+            'Foto'=>'required|mimes:jpeg,png,jpg',
+        ];
+        $mensaje=[
+            'required'=>'El :attribute es requerido',
+            'Foto.required'=>'La foto requerida'
+        ];
+
+        $this->validate($request, $campos, $mensaje);
+
+
+
+
         // $datosEmpleado = request()->all();
         $datosEmpleado = request()->except('_token');
         if($request->hasFile('Foto')){
@@ -70,6 +87,28 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $campos=[
+            'Nombre'=>'required|string',
+            'ApellidoPaterno'=>'required|string|',
+            'ApellidoMaterno'=>'required|string|',
+            'Correo'=>'required|email',
+        ];
+        $mensaje=[
+            'required'=>'El :attribute es requerido',
+        ];
+
+        if($request->hasFile('Foto')){
+            $campos=['Foto'=>'required|mimes:jpeg,png,jpg'];
+            $mensaje=['Foto.required'=>'La foto requerida'];
+
+
+        }
+
+        $this->validate($request, $campos, $mensaje);
+
+        
+
         //
         $datosEmpleado = request()->except(['_token','_method']);
         Empleado::where('id','=',$id)->update($datosEmpleado);

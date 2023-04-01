@@ -1,9 +1,15 @@
-mostrar la lista de empleado
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+
 
 @if(Session::has('mensaje'))
 {{ Session::get('mensaje') }}
 @endif
-<a href="{{ url('empleado/create') }}">Registrar nuevo empleado</a>
+<a href="{{ url('empleado/create') }}" class="btn btn-success">Registrar nuevo empleado</a>
+<br>
+<br>
 
 <table class="table table-light">
     <thead class="thead-light">
@@ -33,16 +39,16 @@ mostrar la lista de empleado
             <td>{{ $empleado->Correo }}</td>
             <td>
                 
-                <a href="{{ url('/empleado/'.$empleado->id.'/edit' ) }}">
+                <a href="{{ url('/empleado/'.$empleado->id.'/edit' ) }}" class="btn btn-warning">
                     Editar
                 </a>
 
                  
                 
-                <form action="{{ url('/empleado/'.$empleado->id ) }}" method="post">
+                <form action="{{ url('/empleado/'.$empleado->id ) }}" method="post" class="d-inline">
                 @csrf
                 {{ method_field('DELETE') }}
-                <input type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar">
+                <input class="btn btn-danger" type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar">
 
                 </form>
 
@@ -52,3 +58,5 @@ mostrar la lista de empleado
         @endforeach
     </tbody>
 </table>
+</div>
+@endsection
