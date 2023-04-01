@@ -1,4 +1,10 @@
 mostrar la lista de empleado
+
+@if(Session::has('mensaje'))
+{{ Session::get('mensaje') }}
+@endif
+<a href="{{ url('empleado/create') }}">Registrar nuevo empleado</a>
+
 <table class="table table-light">
     <thead class="thead-light">
         <tr>
@@ -16,7 +22,11 @@ mostrar la lista de empleado
             
         <tr>
             <td>{{ $empleado->id }}</td>
-            <td>{{ $empleado->Foto }}</td>
+
+            <td>
+            <img src="{{ asset('storage').'/'.$empleado->Foto }}" alt="">
+            </td>
+
             <td>{{ $empleado->Nombre }}</td>
             <td>{{ $empleado->ApellidoPaterno }}</td>
             <td>{{ $empleado->ApellidoMaterno }}</td>
